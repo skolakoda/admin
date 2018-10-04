@@ -1,0 +1,41 @@
+<h2>Korisnici</h2>
+
+<h3>Prikaži polja</h3>
+<label>
+  <input type="checkbox" ng-model="redni_broj" ng-init="redni_broj=false"> Redni broj
+</label>
+<label>
+  <input type="checkbox" ng-model="id" ng-init="id=false"> Id
+</label>
+<label>
+  <input type="checkbox" ng-model="email" ng-init="email=true"> Email
+</label>
+<label>
+  <input type="checkbox" ng-model="prijavljen" ng-init="prijavljen=false"> Prijavljen
+</label>
+<label>
+  <input type="checkbox" ng-model="ime" ng-init="ime=false"> Ime
+</label>
+<label>
+  <input type="checkbox" ng-model="telefon" ng-init="telefon=false"> Telefon
+</label><br>
+
+<table>
+  <tr>
+    <th ng-if="redni_broj"></th>
+    <th ng-if="id">Id</th>
+    <th ng-if="email">Email</th>
+    <th ng-if="prijavljen">Prijavljen</th>
+    <th ng-if="ime">Ime</th>
+    <th ng-if="telefon">Telefon</th>
+  </tr>
+  <tr>
+    <tr ng-repeat="korisnik in ctrl.podaci.korisnici | orderBy:'id'">
+      <td ng-if="redni_broj">{{$index + 1}}</td>
+      <td ng-if="id">{{korisnik.id}}</td>
+      <td ng-if="email">{{korisnik.email}}</td>
+      <td ng-if="prijavljen">{{korisnik.prijavljen ? 'da' : 'ne'}}</td>
+      <td ng-if="ime">{{korisnik.ime}}</td>
+      <td ng-if="telefon">{{korisnik.telefon}}</td>
+    </tr>
+</table>

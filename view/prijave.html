@@ -1,0 +1,100 @@
+<h2>Prijave</h2>
+
+<select class="form-control" ng-model="ctrl.filteri.kurs_id">
+  <option value="">Svi kursevi</option>
+  <option ng-repeat="kurs in ctrl.podaci.kursevi | orderBy: 'id'" ng-value="kurs.id">{{kurs.id}}) {{kurs.naziv}}</option>
+</select><br>
+
+<select class="form-control" ng-model="ctrl.filteri.javljeno" ng-init="ctrl.filteri.javljeno=false">
+  <option ng-value="undefined">Sve prijave</option>
+  <option ng-value="true">Javljeno</option>
+  <option ng-value="false">Nije javljeno</option>
+</select><br>
+
+<label>
+  <input type="radio" ng-model="ctrl.filteri.uzivo" ng-value="true" ng-init="ctrl.filteri.uzivo=undefined">
+  Uživo
+</label>
+<label>
+  <input type="radio" ng-model="ctrl.filteri.uzivo" ng-value="false">
+  Online
+</label>
+<label>
+  <input type="radio" ng-model="ctrl.filteri.uzivo" ng-value="undefined">
+  Sve
+</label>
+
+<h3>Poređaj po</h3>
+<select class="form-control" ng-model="poredjajPo" ng-init="poredjajPo='datum'">
+  <option value="kurs_naziv">Nazivu kursa</option>
+  <option value="datum">Datumu prijave</option>
+  <option value="korisnik_ime">Imenu polaznika</option>
+  <option value="uzivo">Načinu pohađanja</option>
+</select><br>
+
+<h3>Prikaži polja</h3>
+<label>
+  <input type="checkbox" ng-model="redni_broj" ng-init="redni_broj=true"> Redni broj
+</label>
+<label>
+  <input type="checkbox" ng-model="prijava_id" ng-init="prijava_id=true"> Id prijave
+</label>
+<label>
+  <input type="checkbox" ng-model="kurs_naziv" ng-init="kurs_naziv=true"> Naziv kursa
+</label>
+<label>
+  <input type="checkbox" ng-model="korisnik_ime" ng-init="korisnik_ime=true"> Ime polaznika
+</label>
+<label>
+  <input type="checkbox" ng-model="korisnik_email" ng-init="korisnik_email=true"> Email
+</label>
+<label>
+  <input type="checkbox" ng-model="korisnik_telefon" ng-init="korisnik_telefon=true"> Telefon
+</label>
+<label>
+  <input type="checkbox" ng-model="uzivo" ng-init="uzivo=true"> Način pohađanja
+</label>
+<label>
+  <input type="checkbox" ng-model="javljeno" ng-init="javljeno=true"> Javljeno
+</label>
+<label>
+  <input type="checkbox" ng-model="datum" ng-init="datum=true"> Datum
+</label><br>
+
+<table>
+  <tr>
+    <th ng-if="redni_broj"></th>
+    <th ng-if="prijava_id">Id prijave</th>
+    <th ng-if="kurs_naziv">Naziv kursa</th>
+    <th ng-if="korisnik_ime">Ime i prezime</th>
+    <th ng-if="korisnik_email">Email</th>
+    <th ng-if="korisnik_telefon">Telefon</th>
+    <th ng-if="uzivo">Način pohađanja</th>
+    <th ng-if="javljeno">Javljeno</th>
+    <th ng-if="datum">Datum</th>
+    <th>&#10005;</th>
+  </tr>
+  <tr ng-repeat="prijava in (ctrl.izabrano = (ctrl.podaci.prijave | orderBy:poredjajPo | filter:ctrl.filteri:true)) ">
+    <td ng-if="redni_broj">{{$index + 1}}</td>
+    <td ng-if="prijava_id">{{prijava.id}}</td>
+    <td ng-if="kurs_naziv">{{prijava.kurs_naziv}}</td>
+    <td ng-if="korisnik_ime">{{prijava.korisnik_ime}}</td>
+    <td ng-if="korisnik_email">{{prijava.korisnik_email}}</td>
+    <td ng-if="korisnik_telefon">{{prijava.korisnik_telefon}}</td>
+    <td ng-if="uzivo">{{prijava.uzivo ? 'uzivo' : 'preko neta'}}</td>
+    <td ng-if="javljeno" ng-dblclick="ctrl.azurirajJavljeno(prijava.id, !prijava.javljeno)" class="pointer">{{prijava.javljeno}}</td>
+    <td ng-if="datum">{{prijava.datum.substring(0, 10)}}</td>
+    <td ng-click="ctrl.obrisi(prijava.id)" class="pointer">&#10005; {{ctrl.trebaBrisati[prijava.id] && 'ok?'}}</td>
+  </tr>
+</table>
+
+<br>
+<p>
+  <button class="btn" ng-click="ctrl.dodajMejlove()">Dodaj mejlove</button>
+  <button class="btn" ng-click="ctrl.dodajTelefone()">Dodaj telefone</button>
+  <a id="sacuvaj" href="" class="btn">Sačuvaj fajl</a>
+</p>
+
+<div>
+  {{ctrl.csv}}
+</div>
