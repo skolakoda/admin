@@ -11,25 +11,11 @@
   <option ng-value="false">Nije javljeno</option>
 </select><br>
 
-<label>
-  <input type="radio" ng-model="ctrl.filteri.uzivo" ng-value="true" ng-init="ctrl.filteri.uzivo=undefined">
-  Uživo
-</label>
-<label>
-  <input type="radio" ng-model="ctrl.filteri.uzivo" ng-value="false">
-  Online
-</label>
-<label>
-  <input type="radio" ng-model="ctrl.filteri.uzivo" ng-value="undefined">
-  Sve
-</label>
-
 <h3>Poređaj po</h3>
 <select class="form-control" ng-model="poredjajPo" ng-init="poredjajPo='datum'">
   <option value="kurs_naziv">Nazivu kursa</option>
   <option value="datum">Datumu prijave</option>
   <option value="korisnik_ime">Imenu polaznika</option>
-  <option value="uzivo">Načinu pohađanja</option>
 </select><br>
 
 <h3>Prikaži polja</h3>
@@ -52,9 +38,6 @@
   <input type="checkbox" ng-model="korisnik_telefon" ng-init="korisnik_telefon=true"> Telefon
 </label>
 <label>
-  <input type="checkbox" ng-model="uzivo" ng-init="uzivo=true"> Način pohađanja
-</label>
-<label>
   <input type="checkbox" ng-model="javljeno" ng-init="javljeno=true"> Javljeno
 </label>
 <label>
@@ -69,7 +52,6 @@
     <th ng-if="korisnik_ime">Ime i prezime</th>
     <th ng-if="korisnik_email">Email</th>
     <th ng-if="korisnik_telefon">Telefon</th>
-    <th ng-if="uzivo">Način pohađanja</th>
     <th ng-if="javljeno">Javljeno</th>
     <th ng-if="datum">Datum</th>
     <th>&#10005;</th>
@@ -81,7 +63,6 @@
     <td ng-if="korisnik_ime">{{prijava.korisnik_ime}}</td>
     <td ng-if="korisnik_email">{{prijava.korisnik_email}}</td>
     <td ng-if="korisnik_telefon">{{prijava.korisnik_telefon}}</td>
-    <td ng-if="uzivo">{{prijava.uzivo ? 'uzivo' : 'preko neta'}}</td>
     <td ng-if="javljeno" ng-dblclick="ctrl.azurirajJavljeno(prijava.id, !prijava.javljeno)" class="pointer">{{prijava.javljeno}}</td>
     <td ng-if="datum">{{prijava.datum.substring(0, 10)}}</td>
     <td ng-click="ctrl.obrisi(prijava.id)" class="pointer">&#10005; {{ctrl.trebaBrisati[prijava.id] && 'ok?'}}</td>
