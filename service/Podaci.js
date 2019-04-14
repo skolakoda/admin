@@ -29,7 +29,7 @@ class Podaci {
 
   obrisiPrijavu(prijava_id) {
     const http = new XMLHttpRequest()
-    http.open('POST', `${domen}/brisanje`, true)
+    http.open('POST', `${domen}/brisanje`)
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
     http.onload = () => window.location.reload()
     http.send(`prijava_id=${prijava_id}&lozinka=${localStorage.lozinka}`)
@@ -37,9 +37,12 @@ class Podaci {
 
   azurirajJavljeno(prijava_id, javljeno) {
     const http = new XMLHttpRequest()
-    http.open('POST', `${domen}/azurira-javljeno`, true)
+    http.open('POST', `${domen}/azurira-javljeno`)
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-    http.onload = (e) => console.log(e.target.response)
+    http.onload = e => {
+      alert(e.target.response)
+      window.location.reload()
+    }
     http.send(`prijava_id=${prijava_id}&javljeno=${javljeno}&lozinka=${localStorage.lozinka}`)
   }
 }
