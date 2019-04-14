@@ -39,10 +39,7 @@ class Podaci {
     const http = new XMLHttpRequest()
     http.open('POST', `${domen}/azurira-javljeno`)
     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
-    http.onload = e => {
-      alert(e.target.response)
-      window.location.reload()
-    }
+    http.onload = e => alert(e.target.response)
     http.send(`prijava_id=${prijava_id}&javljeno=${javljeno}&lozinka=${localStorage.lozinka}`)
   }
 }

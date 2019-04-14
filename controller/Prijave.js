@@ -10,6 +10,10 @@ class Prijave {
 
   azurirajJavljeno(prijavaId, javljeno) {
     this.podaci.azurirajJavljeno(prijavaId, javljeno)
+    // nece azuriranje na callback, mora optimisticno
+    this.podaci.prijave.map(prijava => {
+      if (prijava.id == prijavaId) prijava.javljeno = javljeno
+    })
   }
 
   obrisi(prijava_id) {
